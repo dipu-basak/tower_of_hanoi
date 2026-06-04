@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tower of Hanoi - Interactive Slides</title>
+  <style>
+    :root {
+      --bg-workspace: #f4f7f6;
+      --bg-slide: #fafbfb;
+      --border-dark: #121212;
+      --neo-shadow: 8px 8px 0px #121212;
+      --neo-shadow-sm: 4px 4px 0px #121212;
+      --neo-shadow-active: 2px 2px 0px #121212;
+      
+      /* Vibrant Accent Colors for High Intensity Background Dots */
+      --accent-cyan: #7bfab2;
+      --accent-blue: #66c2ff;
+      --accent-pink: #ff7ea5;
+      --accent-yellow: #ffd54f;
+      --accent-orange: #ff9e59;
+      
+      --text-main: #121212;
+      --text-muted: #4a4a4a;
+      --glass-light: rgba(255, 255, 255, 0.45);
+      /* Increased transparency for the intro panel card */
+      --glass-strong: rgba(255, 255, 255, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Trebuchet MS", "Arial Black", "Segoe UI", sans-serif;
+      background-color: var(--bg-workspace);
+      /* Increased color coverage size and intensity for background dots */
+      background-image: 
+        radial-gradient(var(--accent-blue) 16%, transparent 16%),
+        radial-gradient(var(--accent-pink) 16%, transparent 16%);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      color: var(--text-main);
+    }
+
+    /* Deck stretches completely across the viewport, solving the spacing issue in image_798ae3.png */
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Borderless full-bleed design to maximize screen real estate */
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.02);
+      transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+      
+      background: var(--bg-slide);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    /* Intro Slide Layout */
+    .intro-slide {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      height: 100%;
+      padding: 2.5rem;
+    }
+
+    /* Floating Animated Decorative Background Grid */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-size: 40px 40px;
+      background-image: 
+        radial-gradient(var(--accent-blue) 12%, transparent 12%),
+        radial-gradient(var(--accent-pink) 12%, transparent 12%);
+      background-position: 0 0, 20px 20px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Slide Header: Title Rising */
+    .header-zone {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .intro-title-wrapper {
+      display: inline-block;
+      overflow: hidden;
+      padding: 0.6rem 2.5rem;
+      background: var(--accent-yellow);
+      border: 4px solid var(--border-dark);
+      box-shadow: var(--neo-shadow-sm);
+      transform: rotate(-1deg);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      color: var(--text-main);
+      transform: translateY(150%);
+      animation: textRiseUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    /* Background Tower Scene */
+    .tower-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.95; 
+      pointer-events: none;
+    }
+
+    .platforms {
+      position: absolute;
+      bottom: 10%;
+      left: 10%;
+      right: 10%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10%;
+    }
+
+    .tower {
+      position: relative;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .rod {
+      position: absolute;
+      bottom: 24px;
+      width: 18px;
+      height: 250px;
+      background: var(--border-dark);
+      border-radius: 99px;
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .base {
+      width: 100%;
+      height: 28px;
+      background: var(--accent-blue);
+      border: 4.5px solid var(--border-dark);
+      border-radius: 14px;
+      box-shadow: var(--neo-shadow-sm);
+    }
+
+    /* Animated Disks with crisp thick borders */
+    .disk {
+      position: absolute;
+      left: 50%;
+      border: 4px solid var(--border-dark);
+      border-radius: 16px;
+      box-shadow: var(--neo-shadow-sm);
+      transform-origin: center center;
+    }
+
+    .disk.large {
+      width: 210px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-pink) 0%, #ff859d 100%);
+    }
+
+    .disk.medium {
+      width: 160px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent-yellow) 0%, #ffd042 100%);
+    }
+
+    .disk.small {
+      width: 110px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #52f08a 100%);
+    }
+
+    /* Hero Presenter Card (Front Element) */
+    .hero-presenter {
+      position: relative;
+      z-index: 3;
+      align-self: center;
+      justify-self: center;
+      width: min(600px, 92%);
+      padding: 2.2rem;
+      background: var(--glass-strong);
+      border: 4px solid var(--border-dark);
+      border-radius: 24px;
+      box-shadow: 12px 12px 0px #121212;
+      text-align: center;
+      transform: rotate(0.5deg);
+      backdrop-filter: blur(14px);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .hero-presenter:hover {
+      transform: scale(1.02) rotate(-0.5deg);
+    }
+
+    .team-badge {
+      display: inline-block;
+      padding: 0.45rem 1.2rem;
+      background: var(--accent-cyan);
+      border: 3.5px solid var(--border-dark);
+      border-radius: 99px;
+      font-weight: 900;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--neo-shadow-sm);
+    }
+
+    .team-title {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    /* Clean 4-Member Grid System */
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .member-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem;
+      background: #ffffff;
+      border: 3.5px solid var(--border-dark);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0px var(--border-dark);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .member-pill:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--border-dark);
+    }
+
+    .member-role {
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .member-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    /* Controls & Navigation Indicators */
+    .slide-indicator {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 5;
+      padding: 0.5rem 0.8rem;
+      background: var(--accent-pink);
+      border: 3px solid var(--border-dark);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      box-shadow: var(--neo-shadow-sm);
+    }
+
+    /* Absolute Interactive Control Deck */
+    .nav-buttons {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2rem;
+      z-index: 10;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-orange);
+      border: 3.5px solid var(--border-dark);
+      border-radius: 14px;
+      box-shadow: var(--neo-shadow-sm);
+      cursor: pointer;
+      font-size: 1.3rem;
+      font-weight: 900;
+      transition: all 150ms ease;
+      user-select: none;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-yellow);
+      transform: translate(-3px, -3px);
+      box-shadow: 7px 7px 0px var(--border-dark);
+    }
+
+    .nav-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: var(--neo-shadow-active);
+    }
+
+    /* Placeholder Slide Design */
+    .placeholder-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .placeholder-box {
+      max-width: 650px;
+      padding: 2.5rem;
+      background: var(--glass-strong);
+      border: 4px dashed var(--border-dark);
+      border-radius: 20px;
+      box-shadow: var(--neo-shadow);
+    }
+
+    .placeholder-box h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .placeholder-box p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Animations */
+    @keyframes textRiseUp {
+      0% {
+        transform: translateY(120%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
+    }
+
+    /* Responsive Scaling */
+    @media (max-width: 768px) {
+      .intro-slide {
+        padding: 1.5rem;
+      }
+      .hero-presenter {
+        padding: 1.5rem;
+      }
+      .team-members {
+        grid-template-columns: 1fr;
+      }
+      .nav-buttons {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Tower of Hanoi presentation">
+    <div class="slides">
+      
+      <!-- SLIDE 1: INTRO (Ready & Beautifully Styled) -->
+      <section class="slide intro-slide active" data-slide="0" aria-hidden="false">
+        <div class="grid-bg"></div>
+        <div class="slide-indicator">01 / 02</div>
+        
+        <!-- Animated Title Header -->
+        <header class="header-zone">
+          <div class="intro-title-wrapper">
+            <h1>Tower of Hanoi</h1>
+          </div>
+        </header>
+
+        <!-- Dynamic Tower Background Simulation -->
+        <div class="tower-scene" id="hanoi-scene" aria-hidden="true">
+          <div class="platforms">
+            <div class="tower">
+              <div class="rod"></div>
+              <div class="base"></div>
+            </div>
+            <div class="tower">
+              <div class="rod"></div>
+              <div class="base"></div>
+            </div>
+            <div class="tower">
+              <div class="rod"></div>
+              <div class="base"></div>
+            </div>
+          </div>
+
+          <!-- Disks with initial classes -->
+          <div class="disk large" id="disk-large"></div>
+          <div class="disk medium" id="disk-medium"></div>
+          <div class="disk small" id="disk-small"></div>
+        </div>
+
+        <!-- Presenter / Team card -->
+        <div class="hero-presenter">
+          <span class="team-badge">Team Alpha presents</span>
+          <h2 class="team-title">Tower of Hanoi</h2>
+          
+          <!-- 4 Team Member Placeholders -->
+          <div class="team-members">
+            <div class="member-pill">
+              <span class="member-role">Developer</span>
+              <span class="member-name">Alex Rivera</span>
+            </div>
+            <div class="member-pill">
+              <span class="member-role">Designer</span>
+              <span class="member-name">Sophia Chen</span>
+            </div>
+            <div class="member-pill">
+              <span class="member-role">Analyst</span>
+              <span class="member-name">Marcus Vance</span>
+            </div>
+            <div class="member-pill">
+              <span class="member-role">Presenter</span>
+              <span class="member-name">Elena Rostova</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Slide Buttons (Neo-brutalist clickable design) -->
+        <div class="nav-buttons">
+          <button class="nav-btn" id="prev-btn" aria-label="Previous Slide">◀</button>
+          <button class="nav-btn" id="next-btn" aria-label="Next Slide">▶</button>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: PLACEHOLDER (Ready for next steps) -->
+      <section class="slide placeholder-slide" data-slide="1" aria-hidden="true">
+        <div class="slide-indicator">02 / 02</div>
+        <div class="placeholder-box">
+          <h2>Next Up: Formulation</h2>
+          <p>
+            The interactive intro page is fully ready and stable! Let me know when you are ready to write the next slides detailing the **Problem Formulation & History**.
+          </p>
+        </div>
+        <!-- Keep buttons on second slide too -->
+        <div class="nav-buttons">
+          <button class="nav-btn" id="prev-btn-2" aria-label="Previous Slide">◀</button>
+          <button class="nav-btn" id="next-btn-2" aria-label="Next Slide">▶</button>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <script>
+    // --- SLIDE NAVIGATION ---
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let currentSlide = 0;
+
+    function setActiveSlide(nextIndex) {
+      if (nextIndex < 0 || nextIndex >= slides.length || nextIndex === currentSlide) return;
+      
+      slides[currentSlide].classList.remove('active');
+      slides[currentSlide].setAttribute('aria-hidden', 'true');
+      
+      currentSlide = nextIndex;
+      
+      slides[currentSlide].classList.add('active');
+      slides[currentSlide].setAttribute('aria-hidden', 'false');
+      
+      // Stop/Start simulator checks on slide switch
+      if (currentSlide === 0) {
+        startSimulator();
+      } else {
+        stopSimulator();
+      }
+    }
+
+    // Keyboard controls
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        setActiveSlide(currentSlide + 1);
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        setActiveSlide(currentSlide - 1);
+      }
+    });
+
+    // Wire up buttons for Slide 1
+    document.getElementById('prev-btn').addEventListener('click', () => setActiveSlide(currentSlide - 1));
+    document.getElementById('next-btn').addEventListener('click', () => setActiveSlide(currentSlide + 1));
+
+    // Wire up buttons for Slide 2
+    document.getElementById('prev-btn-2').addEventListener('click', () => setActiveSlide(currentSlide - 1));
+    document.getElementById('next-btn-2').addEventListener('click', () => setActiveSlide(currentSlide + 1));
+
+
+    // --- AUTOMATED BACKGROUND HANOI SIMULATOR (3 DISKS) ---
+    const diskElements = {
+      'disk-large': document.getElementById('disk-large'),
+      'disk-medium': document.getElementById('disk-medium'),
+      'disk-small': document.getElementById('disk-small'),
+    };
+
+    // Fast, smooth physics configuration
+    const TIMINGS = {
+      lift: 350,
+      slide: 450,
+      drop: 300,
+      settle: 150,
+    };
+
+    let simulatorRunning = false;
+    let shouldCancelSimulation = false;
+    let activeTimeouts = [];
+
+    function sleep(ms) {
+      return new Promise(resolve => {
+        const t = setTimeout(resolve, ms);
+        activeTimeouts.push(t);
+      });
+    }
+
+    // Recursive sequence finder
+    function computeHanoiMoves(n, source, auxiliary, target, moves) {
+      if (n === 0) return;
+      computeHanoiMoves(n - 1, source, target, auxiliary, moves);
+      moves.push({ diskSize: n, from: source, to: target });
+      computeHanoiMoves(n - 1, auxiliary, source, target, moves);
+    }
+
+    // Compute relative scene layout
+    function getSceneLayout() {
+      const scene = document.getElementById('hanoi-scene');
+      const towers = Array.from(document.querySelectorAll('.tower'));
+      const sceneRect = scene.getBoundingClientRect();
+
+      return towers.map(tower => {
+        const towerRect = tower.getBoundingClientRect();
+        const base = tower.querySelector('.base');
+        const baseRect = base.getBoundingClientRect();
+
+        return {
+          centerX: (towerRect.left - sceneRect.left) + (towerRect.width / 2),
+          baseTop: baseRect.top - sceneRect.top,
+        };
+      });
+    }
+
+    // Correctly stack all disks onto Tower 0 (Source)
+    function resetDisksToInitial() {
+      const towers = getSceneLayout();
+      const firstTower = towers[0];
+      if (!firstTower) return;
+      
+      const stack = ['disk-large', 'disk-medium', 'disk-small'];
+
+      stack.forEach((id, index) => {
+        const disk = diskElements[id];
+        const h = disk.offsetHeight || 28;
+        
+        // Correct height coordinate calculation (bottom-up stack relative to base offset top)
+        const computedTop = firstTower.baseTop - h - (index * (h + 6)) - 4;
+        
+        disk.style.transition = 'none';
+        disk.style.left = `${firstTower.centerX}px`;
+        disk.style.top = `${computedTop}px`;
+        disk.style.transform = 'translateX(-50%)';
+        disk.style.zIndex = 10 + index;
+      });
+    }
+
+    // Animates disk coordinates precisely
+    async function animateDiskMove(diskId, fromTowerIdx, toTowerIdx, currentTargetHeights) {
+      if (shouldCancelSimulation) return;
+      const towers = getSceneLayout();
+      const disk = diskElements[diskId];
+      const diskHeight = disk.offsetHeight || 28;
+
+      // 1. Lift Disk
+      disk.style.transition = `transform ${TIMINGS.lift}ms cubic-bezier(0.25, 1, 0.5, 1), top ${TIMINGS.lift}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+      disk.style.top = `${towers[fromTowerIdx].baseTop - 220}px`;
+      disk.style.zIndex = 100;
+      await sleep(TIMINGS.lift + TIMINGS.settle);
+
+      if (shouldCancelSimulation) return;
+
+      // 2. Slide across X axis
+      disk.style.transition = `left ${TIMINGS.slide}ms cubic-bezier(0.76, 0, 0.24, 1)`;
+      disk.style.left = `${towers[toTowerIdx].centerX}px`;
+      await sleep(TIMINGS.slide + TIMINGS.settle);
+
+      if (shouldCancelSimulation) return;
+
+      // 3. Drop down on target tower height
+      const targetStackCount = currentTargetHeights[toTowerIdx];
+      const targetTop = towers[toTowerIdx].baseTop - diskHeight - (targetStackCount * (diskHeight + 6)) - 4;
+      
+      disk.style.transition = `top ${TIMINGS.drop}ms cubic-bezier(0.6, -0.28, 0.735, 0.045)`;
+      disk.style.top = `${targetTop}px`;
+      await sleep(TIMINGS.drop + TIMINGS.settle);
+
+      if (shouldCancelSimulation) return;
+      disk.style.zIndex = 10 + targetStackCount;
+    }
+
+    // Solver loop
+    async function executeLoop() {
+      while (currentSlide === 0 && !shouldCancelSimulation) {
+        resetDisksToInitial();
+        await sleep(1000);
+
+        if (shouldCancelSimulation || currentSlide !== 0) break;
+
+        const moves = [];
+        computeHanoiMoves(3, 0, 1, 2, moves);
+
+        const stacks = [
+          ['disk-large', 'disk-medium', 'disk-small'], // tower 0
+          [],                                          // tower 1
+          []                                           // tower 2
+        ];
+
+        for (const move of moves) {
+          if (shouldCancelSimulation || currentSlide !== 0) break;
+
+          const diskId = stacks[move.from].pop();
+          
+          await animateDiskMove(diskId, move.from, move.to, [
+            stacks[0].length,
+            stacks[1].length,
+            stacks[2].length
+          ]);
+
+          stacks[move.to].push(diskId);
+          await sleep(500);
+        }
+
+        await sleep(2000);
+      }
+    }
+
+    function startSimulator() {
+      if (simulatorRunning) return;
+      simulatorRunning = true;
+      shouldCancelSimulation = false;
+      executeLoop();
+    }
+
+    function stopSimulator() {
+      shouldCancelSimulation = true;
+      simulatorRunning = false;
+      activeTimeouts.forEach(t => clearTimeout(t));
+      activeTimeouts = [];
+    }
+
+    // Handles window updates safely
+    window.addEventListener('resize', () => {
+      if (currentSlide === 0) {
+        resetDisksToInitial();
+      }
+    });
+
+    // Boot Up
+    window.addEventListener('load', () => {
+      resetDisksToInitial();
+      setTimeout(startSimulator, 450);
+    });
+  </script>
+</body>
+</html>
