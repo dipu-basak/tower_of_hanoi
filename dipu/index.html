@@ -208,18 +208,64 @@
       background: linear-gradient(135deg, var(--accent-cyan) 0%, #52f08a 100%);
     }
 
-    /* Hero Presenter Card (Front Element) */
-    .hero-presenter {
+    /* Center layout grouping course and presenter card cleanly */
+    .center-group {
       position: relative;
       z-index: 3;
       align-self: center;
       justify-self: center;
-      width: min(600px, 92%);
-      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: min(650px, 92%);
+    }
+
+    /* Course Code & Title Card */
+    .course-card {
+      background: var(--glass-strong);
+      border: 4px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 0.9rem 1.5rem;
+      box-shadow: var(--neo-shadow-sm);
+      text-align: center;
+      backdrop-filter: blur(14px);
+      transform: rotate(-0.5deg);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .course-code {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .course-code span {
+      background: var(--accent-cyan);
+      border: 2px solid var(--border-dark);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      box-shadow: 2px 2px 0px var(--border-dark);
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: var(--text-main);
+    }
+
+    /* Hero Presenter Card (Front Element) */
+    .hero-presenter {
       background: var(--glass-strong);
       border: 4px solid var(--border-dark);
       border-radius: 24px;
       box-shadow: 12px 12px 0px #121212;
+      padding: 2.2rem;
       text-align: center;
       transform: rotate(0.5deg);
       backdrop-filter: blur(14px);
@@ -227,13 +273,13 @@
     }
 
     .hero-presenter:hover {
-      transform: scale(1.02) rotate(-0.5deg);
+      transform: scale(1.01) rotate(-0.5deg);
     }
 
     .team-badge {
       display: inline-block;
       padding: 0.45rem 1.2rem;
-      background: var(--accent-cyan);
+      background: var(--accent-pink);
       border: 3.5px solid var(--border-dark);
       border-radius: 99px;
       font-weight: 900;
@@ -279,18 +325,17 @@
       box-shadow: 6px 6px 0px var(--border-dark);
     }
 
-    .member-role {
-      font-size: 0.75rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.2rem;
-    }
-
     .member-name {
       font-size: 1.1rem;
       font-weight: 900;
+    }
+
+    .member-id {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      text-transform: uppercase;
     }
 
     /* Controls & Navigation Indicators */
@@ -308,27 +353,27 @@
       box-shadow: var(--neo-shadow-sm);
     }
 
-    /* Absolute Interactive Control Deck */
+    /* Absolute Interactive Control Deck (Shrunk Navigation Buttons) */
     .nav-buttons {
       position: absolute;
       bottom: 1.5rem;
       right: 2rem;
       z-index: 10;
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .nav-btn {
-      width: 54px;
-      height: 54px;
+      width: 44px;
+      height: 44px;
       display: grid;
       place-items: center;
       background: var(--accent-orange);
-      border: 3.5px solid var(--border-dark);
-      border-radius: 14px;
+      border: 3px solid var(--border-dark);
+      border-radius: 12px;
       box-shadow: var(--neo-shadow-sm);
       cursor: pointer;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 900;
       transition: all 150ms ease;
       user-select: none;
@@ -336,8 +381,8 @@
 
     .nav-btn:hover {
       background: var(--accent-yellow);
-      transform: translate(-3px, -3px);
-      box-shadow: 7px 7px 0px var(--border-dark);
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--border-dark);
     }
 
     .nav-btn:active {
@@ -393,6 +438,9 @@
       .intro-slide {
         padding: 1.5rem;
       }
+      .center-group {
+        width: 95%;
+      }
       .hero-presenter {
         padding: 1.5rem;
       }
@@ -446,28 +494,37 @@
           <div class="disk small" id="disk-small"></div>
         </div>
 
-        <!-- Presenter / Team card -->
-        <div class="hero-presenter">
-          <span class="team-badge">Team Alpha presents</span>
-          <h2 class="team-title">Tower of Hanoi</h2>
-          
-          <!-- 4 Team Member Placeholders -->
-          <div class="team-members">
-            <div class="member-pill">
-              <span class="member-role">Developer</span>
-              <span class="member-name">Alex Rivera</span>
-            </div>
-            <div class="member-pill">
-              <span class="member-role">Designer</span>
-              <span class="member-name">Sophia Chen</span>
-            </div>
-            <div class="member-pill">
-              <span class="member-role">Analyst</span>
-              <span class="member-name">Marcus Vance</span>
-            </div>
-            <div class="member-pill">
-              <span class="member-role">Presenter</span>
-              <span class="member-name">Elena Rostova</span>
+        <!-- Center Group: Course Card & Presenter Card -->
+        <div class="center-group">
+          <!-- Course Card -->
+          <div class="course-card">
+            <div class="course-code">Course Code: <span>CSE - 2203</span></div>
+            <div class="course-title">Course Title: Algorithm Analysis</div>
+          </div>
+
+          <!-- Presenter / Team card -->
+          <div class="hero-presenter">
+            <span class="team-badge">Team Alpha presents</span>
+            <h2 class="team-title">Tower of Hanoi</h2>
+            
+            <!-- 4 Team Member Placeholders with Name and ID -->
+            <div class="team-members">
+              <div class="member-pill">
+                <span class="member-name">Dipu Basak</span>
+                <span class="member-id">ID: 20242079010</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Sophia Chen</span>
+                <span class="member-id">ID: 20242079011</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Marcus Vance</span>
+                <span class="member-id">ID: 20242079012</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Elena Rostova</span>
+                <span class="member-id">ID: 20242079013</span>
+              </div>
             </div>
           </div>
         </div>
