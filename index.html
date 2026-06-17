@@ -47,11 +47,11 @@
       height: 100%;
       overflow: hidden;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-workspace);
+      /* background-color: var(--bg-workspace);
       background-image:
         radial-gradient(var(--accent-blue) 16%, transparent 16%),
         radial-gradient(var(--accent-pink) 16%, transparent 16%);
-      background-size: 40px 40px;
+      background-size: 40px 40px; */
       background-position: 0 0, 20px 20px;
       color: var(--text-main);
     }
@@ -96,11 +96,11 @@
       inset: 0;
       z-index: 0;
       background-size: 40px 40px;
-      background-image:
+      /* background-image:
         radial-gradient(var(--accent-blue) 12%, transparent 12%),
         radial-gradient(var(--accent-pink) 12%, transparent 12%);
       background-position: 0 0, 20px 20px;
-      opacity: 0.15;
+      opacity: 0.15; */
       pointer-events: none;
     }
 
@@ -111,8 +111,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 1.5rem;
+      /* margin-bottom: 1.5rem; */
       flex-shrink: 0;
+      margin-bottom: 0.5rem;
     }
 
     /* Solid title wrapper box with thick borders and drop shadow */
@@ -182,7 +183,7 @@
     }
 
     .tower-scene.bg-mode {
-      opacity: 0.75;
+      opacity: 0.65;
     }
 
     .platforms {
@@ -276,7 +277,8 @@
       transform: rotate(-0.5deg);
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      /* gap: 0.2rem; */
+      /* margin-top: 0.5rem; */
     }
 
     .course-code {
@@ -538,8 +540,8 @@
     /* Custom Python Code Container styling - Updated filter to 5px */
     .code-container {
       width: 100%;
-      background-color: rgba(18, 18, 18, 0.75);
-      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.836);
+      backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(5px);
       border: 4px solid var(--border-dark);
       border-radius: 20px;
@@ -943,18 +945,18 @@
       <!-- SLIDE 1: INTRO (Updated Team details and Course Code) -->
       <section class="slide active" data-slide="0" aria-hidden="false" id="slide1">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">01 / 16</div>
+        <div class="slide-indicator">01 / 15</div>
 
         <header class="header-zone">
           <div class="intro-title-wrapper">
             <h1>Tower of Hanoi</h1>
           </div>
+          
         </header>
-
         <div class="center-group">
           <div class="course-card">
             <div class="course-code">Course Code: <span>CSE - 2203</span></div>
-            <div class="course-title">Course Title: Algorithm Analysis</div>
+            <div class="course-title">Course Title: Algorithm Analysis and Design</div>
           </div>
 
           <div class="hero-presenter">
@@ -983,12 +985,45 @@
             </div>
           </div>
         </div>
+
+        <div class="center-group">
+          <!-- <div class="course-card">
+            <div class="course-code">Course Code: <span>CSE - 2203</span></div>
+            <div class="course-title">Course Title: Algorithm Analysis</div>
+          </div> -->
+
+          <!-- <div class="hero-presenter">
+            <span class="team-badge">Team Recursion presents</span>
+            <h2 class="team-title" style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 0.8rem;">Tower of Hanoi
+            </h2>
+
+            <div class="team-members">
+              <div class="member-pill">
+                <span class="member-name">Dipu Basak</span>
+                <span class="member-id">ID: 20242079010</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Aishwariya Mondal</span>
+                <span class="member-id">ID: 20242121010</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Shahanima parvin</span>
+                <span class="member-id">ID: 20242133010</span>
+              </div>
+              <div class="member-pill">
+                <span class="member-name">Misha Islam Borsha</span>
+                <span class="member-id">ID: 20242135010</span>
+              </div>
+
+            </div>
+          </div> -->
+        </div>
       </section>
 
       <!-- SLIDE 2: SEGMENT 1 INTRO (Updated Presenter) -->
       <section class="slide" data-slide="1" aria-hidden="true" id="slide2">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">02 / 16</div>
+        <div class="slide-indicator">02 / 15</div>
         <div class="slide-body">
           <div class="intermission-box">
             <div class="section-intermission">
@@ -1004,16 +1039,16 @@
       <!-- SLIDE 3: PROBLEM FORMULATION OVERVIEW (Brahma made secondary myth) -->
       <section class="slide" data-slide="2" aria-hidden="true" id="slide3">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">03 / 16</div>
+        <div class="slide-indicator">03 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
-            <h2>Problem Formulation Definition</h2>
+            <h2>Problem Formulation & Definition</h2>
           </div>
         </header>
         <div class="slide-body">
           <div class="grid-2">
-            <div class="neo-card" style="background: var(--accent-cyan); transform: rotate(-0.5deg);">
-              <h3><i class="fa-solid fa-scroll title-icon">Problem Statement</i></h3>
+            <div class="neo-card" style="background: var(--accent-cyan); width: 600px; height: 300px; font-size: 0.95rem;">
+              <h3><i class="fa-solid fa-scroll title-icon">Problem   Statement</i></h3>
               <p>he Tower of Hanoi is a classic problem-solving puzzle that demonstrates recursive thinking and
                 algorithm design.
 
@@ -1021,8 +1056,8 @@
               <p style="margin-top: 1rem;">The objective is to move a stack of n disks from the Source Rod (A) to the
                 Destination Rod (C) using the Auxiliary Rod (B).</p>
             </div>
-            <div class="neo-card" style="transform: rotate(0.5deg); font-size: 0.95rem; opacity: 0.95;">
-              <h3><i class="fa-solid fa-scroll title-icon"></i> Supplementary Myth</h3>
+            <div class="neo-card" style="width: 600px; height: 300px; font-size: 0.95rem; opacity: 0.95;">
+              <h3><i class="fa-solid fa-scroll title-icon"></i> Legend of Brahma</h3>
               <p>Invented in 1883 by Édouard Lucas. Legend notes priests moving 64 golden disks across three rods. When
                 done, the world ends. Solving it requires 2<sup>64</sup> - 1 steps (585 billion years).</p>
             </div>
@@ -1033,7 +1068,7 @@
       <!-- SLIDE 4: STATEMENT AND CONSTRAINTS (Added Blurry Backdrop Container around goal text) -->
       <section class="slide" data-slide="3" aria-hidden="true" id="slide4">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">04 / 16</div>
+        <div class="slide-indicator">04 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Problem & Constraints</h2>
@@ -1046,6 +1081,7 @@
             Our objective is to move a stack of n disks from the <strong>Source Rod (A)</strong> to the
             <strong>Destination Rod (C)</strong> using an <strong>Auxiliary Rod (B)</strong>.
           </div>
+          <br> <br>   
           <div class="grid-3">
             <div class="neo-card" style="background-color: var(--accent-pink); transform: rotate(-1deg);">
               <h3>1. Single Move</h3>
@@ -1053,7 +1089,7 @@
             </div>
             <div class="neo-card" style="background-color: var(--accent-yellow); transform: rotate(1deg);">
               <h3>2. Top Pick</h3>
-              <p>A move consists of picking up only the top disk and placing it onto another stack.</p>
+              <p>Only the top disk of any stack can be moved.</p>
             </div>
             <div class="neo-card" style="background-color: var(--accent-cyan); transform: rotate(-0.5deg);">
               <h3>3. No Overlap</h3>
@@ -1066,7 +1102,7 @@
       <!-- SLIDE 5: SEGMENT 2 INTRO (Updated Presenter) -->
       <section class="slide" data-slide="4" aria-hidden="true" id="slide5">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">05 / 16</div>
+        <div class="slide-indicator">05 / 15</div>
         <div class="slide-body">
           <div class="intermission-box">
             <div class="section-intermission">
@@ -1082,7 +1118,7 @@
       <!-- SLIDE 6: INTERACTIVE SIMULATION (Shows all log steps simultaneously with custom live-state pointers) -->
       <section class="slide" data-slide="5" aria-hidden="true" id="slide6">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">06 / 16</div>
+        <div class="slide-indicator">06 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Interactive Tracing (n = 3)</h2>
@@ -1132,7 +1168,7 @@
       <!-- SLIDE 7: SEGMENT 3 INTRO (Updated Presenter) -->
       <section class="slide" data-slide="6" aria-hidden="true" id="slide7">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">07 / 16</div>
+        <div class="slide-indicator">07 / 15</div>
         <div class="slide-body">
           <div class="intermission-box">
             <div class="section-intermission">
@@ -1148,12 +1184,18 @@
       <!-- SLIDE 8: NEW SLIDE ABOUT RECURSION CONCEPT -->
       <section class="slide" data-slide="7" aria-hidden="true" id="slide8">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">08 / 16</div>
+        <div class="slide-indicator">08 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Understanding Recursion</h2>
           </div>
+          
         </header>
+        <br><br><br><br>
+        <div
+    style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border: 4px solid var(--border-dark); padding: 1.2rem; border-radius: 16px; font-size: 1.25rem; font-weight: 800; margin: 0 auto 1.5rem auto; text-align: center; box-shadow: var(--neo-shadow-sm); width: 500px;">
+    To understand <strong>Recursion</strong>, <br> we need to understand <strong>Recursion</strong>.
+</div>
         <div class="slide-body">
           <div class="grid-2">
             <div class="neo-card" style="background: var(--accent-yellow); transform: rotate(-0.5deg);">
@@ -1177,10 +1219,10 @@
       <!-- SLIDE 9: CONCEPT MAPPING (Removed Complexity Cost Column) -->
       <section class="slide" data-slide="8" aria-hidden="true" id="slide9">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">09 / 16</div>
+        <div class="slide-indicator">09 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
-            <h2>Mapping: Physical to Stack</h2>
+            <h2>Mapping: Physical   to   Stack</h2>
           </div>
         </header>
         <div class="slide-body">
@@ -1219,7 +1261,7 @@
               </tr>
               <tr>
                 <td><strong>Sorting Integrity Check</strong></td>
-                <td>Explicit Data Mapping</td>
+                <td>Stacked in order</td>
                 <td>Larger integers sit lower in list</td>
               </tr>
             </tbody>
@@ -1230,7 +1272,7 @@
       <!-- SLIDE 10: PYTHON CODE EXPLANATION -->
       <section class="slide" data-slide="9" aria-hidden="true" id="slide10">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">10 / 16</div>
+        <div class="slide-indicator">10 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Our Stack-Based Code</h2>
@@ -1264,65 +1306,12 @@
         </div>
       </section>
 
-      <!-- SLIDE 11: STACK FRAMES & SYSTEM MEMORY (Includes matching python code segment) -->
-      <section class="slide" data-slide="10" aria-hidden="true" id="slide11">
-        <div class="grid-bg"></div>
-        <div class="slide-indicator">11 / 16</div>
-        <header class="header-zone">
-          <div class="slide-title-wrapper">
-            <h2>Recursive Call Stack Frames</h2>
-          </div>
-        </header>
-        <div class="slide-body">
-          <div class="grid-2">
-            <div>
-              <p style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.8rem;">Every recursive call suspends the
-                parent function and pushes a new frame onto the system's memory stack.</p>
-              <div class="neo-card" style="transform: rotate(-0.5deg); padding: 1rem; margin-bottom: 1rem;">
-                <p id="stack-instructions" style="font-weight: 800; margin-bottom: 0.4rem; font-size: 0.95rem;">
-                  Visualizing call history for n = 3 disks:</p>
-                <div style="display: flex; gap: 10px; margin-top: 5px;">
-                  <button class="sim-btn" onclick="nextStackFrame()" style="padding: 6px 12px; font-size: 0.85rem;">Push
-                    Frame ➔</button>
-                  <button class="sim-btn" onclick="resetStackViz()"
-                    style="padding: 6px 12px; font-size: 0.85rem; background: var(--accent-pink);">Reset</button>
-                </div>
-              </div>
-              <!-- Replicated python block specified in Requirement #10 -->
-              <div class="code-container">
-                <div class="code-block"><span class="code-key">def</span> <span class="code-fn">hanoi</span>(n, a, b,
-                  c):
-                  <span class="code-key">if</span> n == 1:
-                  <span class="code-com"># Base Case: Move disk from a to c</span>
-                  c.<span class="code-fn">append</span>(a.<span class="code-fn">pop</span>())
-                  <span class="code-key">else</span>:
-                  <span class="code-com"># Step 1: Move top n-1 disks from a to b</span>
-                  <span class="code-fn">hanoi</span>(n - 1, a, c, b)
-                  <span class="code-com"># Step 2: Move the largest disk from a to c</span>
-                  c.<span class="code-fn">append</span>(a.<span class="code-fn">pop</span>())
-                  <span class="code-com"># Step 3: Move the n-1 disks from b to c</span>
-                  <span class="code-fn">hanoi</span>(n - 1, b, a, c)
-                  <span class="code-key">return</span> c
-                </div>
-              </div>
-            </div>
-            <div class="stack-viz-box">
-              <h3 style="font-size: 1.2rem;"><i class="fa-solid fa-microchip title-icon"></i> RAM Call Stack Allocation
-              </h3>
-              <div class="stack-container" id="stack-frame-box">
-                <div
-                  style="text-align: center; color: var(--text-muted); font-weight: 800; font-size: 0.9rem; width: 100%; margin-top: 60px;"
-                  id="stack-empty-msg">Call stack empty. Click 'Push' to run trace.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <!-- SLIDE 12: I/O SPECIFICATIONS (Updated Input parameter specifications) -->
       <section class="slide" data-slide="11" aria-hidden="true" id="slide12">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">12 / 16</div>
+        <div class="slide-indicator">11 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Input & Output Specifications</h2>
@@ -1360,7 +1349,7 @@
       <!-- SLIDE 13: SEGMENT 4 INTRO (Updated Presenter) -->
       <section class="slide" data-slide="12" aria-hidden="true" id="slide13">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">13 / 16</div>
+        <div class="slide-indicator">12 / 15</div>
         <div class="slide-body">
           <div class="intermission-box">
             <div class="section-intermission">
@@ -1376,10 +1365,10 @@
       <!-- SLIDE 14: TIME COMPLEXITY (Centered moves on chart bars, fixed formula layout typography) -->
       <section class="slide" data-slide="13" aria-hidden="true" id="slide14">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">14 / 16</div>
+        <div class="slide-indicator">13 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
-            <h2>Time Complexity & Scaling</h2>
+            <h2>Time Complexity</h2>
           </div>
         </header>
         <div class="slide-body">
@@ -1412,7 +1401,7 @@
             </div>
             <!-- Fixed text math structural typography layout -->
             <div class="neo-card" style="background-color: var(--accent-pink); transform: rotate(0.5deg);">
-              <h3>O(2<sup>n</sup>) Exponential Time</h3>
+              <h3>O(2^n) Exponential Time</h3>
               <p style="margin-bottom: 0.8rem; margin-top: 0.5rem;"><strong>Recurrence Relation:</strong><br>T(n) =
                 2T(n-1) + 1</p>
               <p>Because every increase in disk count n doubles the overall operational step tally, runtime metrics
@@ -1425,7 +1414,7 @@
       <!-- SLIDE 15: SPACE COMPLEXITY (Heavy prominent color applied around complexity parameter box) -->
       <section class="slide" data-slide="14" aria-hidden="true" id="slide15">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">15 / 16</div>
+        <div class="slide-indicator">14 / 15</div>
         <header class="header-zone">
           <div class="slide-title-wrapper">
             <h2>Space Complexity</h2>
@@ -1440,8 +1429,7 @@
                 style="background: var(--accent-pink); border: 4px solid var(--border-dark); padding: 0.6rem 1.2rem; border-radius: 12px; display: inline-block; box-shadow: var(--neo-shadow-sm); margin-bottom: 1rem;">
                 <p style="font-size: 1.6rem; font-weight: 900; color: var(--border-dark);">O(n) Space Complexity</p>
               </div>
-              <p>Memory footprints scale linearly. The deepest functional stack layer matches depth n directly, making
-                heap allocations exceptionally lightweight.</p>
+              <p><Span>Space complexity is O(n) because the maximum depth of the recursive call stack is n.</Span></p>
             </div>
             <div class="neo-card" style="background: var(--accent-yellow); transform: rotate(0.5deg);">
               <h3><i class="fa-solid fa-calculator title-icon"></i> Dynamic Analysis</h3>
@@ -1457,7 +1445,7 @@
       <!-- SLIDE 16: Q&A / END -->
       <section class="slide" data-slide="15" aria-hidden="true" id="slide16">
         <div class="grid-bg"></div>
-        <div class="slide-indicator">16 / 16</div>
+        <div class="slide-indicator">15 / 15</div>
         <div class="slide-body">
           <div class="intermission-box">
             <div class="section-intermission">
@@ -1466,7 +1454,7 @@
               <h2 style="font-size: 4rem;">Any Questions?</h2>
               <hr>
               <p>Thank you for listening to our presentation!</p>
-              <p style="font-size: 1rem; margin-top: 2rem;">CSE-2203 Algorithm Presentation • recursion</p>
+              <p style="font-size: 1rem; margin-top: 2rem;">CSE-2203 Presentation • Team Recursion</p>
             </div>
           </div>
         </div>
